@@ -1,0 +1,33 @@
+{
+  "browser_action": {
+    "default_icon": "reload.png"
+  },
+  "description": "Reload discarded tabs after a session restore to obtain favico",
+  "homepage_url": "https://github.com/irvinm/TST-Lock",
+  "manifest_version": 2,
+  "name": "Reload Discarded Tabs",
+  "version": "0.0.1",
+  "permissions": [
+    "activeTab",
+    "background",
+    "find",
+    "notifications",
+    "sessions",
+    "storage",
+    "tabs",
+    "theme",
+    "unlimitedStorage"
+  ],
+  "background": {
+    "scripts": ["background-rdt.js"]
+  },
+  "icons": {
+    "128": "reload.png"
+  },
+  "applications": {
+    "gecko": {
+      "id": "Reload-Discarded-Tabs@irvinm.addons.mozilla.org"
+    }
+  },
+  "web_accessible_resources": ["images/*.png"]
+}
