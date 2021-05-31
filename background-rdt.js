@@ -40,6 +40,11 @@ function handleUpdated(tabId, changeInfo, tabInfo) {
 
 browser.tabs.onUpdated.addListener(handleUpdated, filter);
 */
+async function myDiscard(tab) {
+  await wait(60000);
+  await browser.tabs.discard(tab);  // Not waiting on it to complete ... don't care
+  console.log('Discard complete for tab ' + this);
+}
 
 async function ReloadAndDiscard(tab) {
   console.log('Reloading and discarding -> tab ' + tab.id + ': ' + tab.url);
@@ -55,23 +60,34 @@ async function ReloadAndDiscard(tab) {
     count++;
 
     /* If the delay between a reload and discard is too low, TST can't keep up */
-    console.log('Waiting for (' + count + ') reload to complete -> 1000ms');
-    await wait(1000);
+    console.log('Waiting for (' + count + ') reload to complete -> 500ms');
+    await wait(500);
 
     var current_tab = await browser.tabs.get(tab.id);
     console.log('tab.status = ' + current_tab.status);
     
-  } while (current_tab.status != "complete" && count <= 10)  // Quit if complete or more than 10 seconds
+  } while (current_tab.status != "complete" && count <= 60)  // Quit if complete or more than 10 seconds
   
-  if (count > 10) {
+  if (count > 60) {
     error_count++;
+    
+    browser.tabs.executeScript(tab.id, {
+      code: "window.stop();",
+      allFrames: true,
+      runAt: "document_start"
+    });
+
     console.log('Waited too long: count = ' + count + ', error count = ', error_count);
   }
 
   console.log('Reload complete ... now discarding');
+  // await wait(3000);  // Try waiting for 1s to ensure TST sees the "complete" and stops throbber
 
-  await browser.tabs.discard(tab.id);  // Not waiting on it to complete ... don't care
-  console.log('Discard complete');
+  //await wait(10000).then(myDiscard.call(tab.id), onError);
+  myDiscard(tab.id);
+
+  // await browser.tabs.discard(tab.id);  // Not waiting on it to complete ... don't care
+  // console.log('Discard complete');
 }
 
 async function logTabs(tabs) {
@@ -92,6 +108,11 @@ async function logTabs(tabs) {
   console.log('Total discarded tabs processed: ' + discarded_count);
   console.log('Total errors: ' + error_count);
   console.log('======================================');
+
+  // Reset counts
+  list_count = 0;
+  discarded_count = 0;
+  error_count = 0;
 }
 
 function Start() {
