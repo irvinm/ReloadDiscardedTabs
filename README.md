@@ -1,3 +1,5 @@
+![CI/CD](https://github.com/irvinm/ReloadDiscardedTabs/workflows/CI/CD/badge.svg)
+
 # ReloadDiscardedTabs
 
 This addon can be used after restoring a session from "Tab Session Manager".  For each discarded tab, it reloads each tab one at a time then waits a period of time (timing issues with favicons and TST) then discards the tab.  The goal is to get around the Firefox limitation that favicons can not be set when creating a discarded tab.  (https://bugzilla.mozilla.org/show_bug.cgi?id=1475240 - Allow setting favicon when creating discarded tabs)
