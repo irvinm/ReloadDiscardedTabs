@@ -16,8 +16,7 @@
     "storage",
     "tabs",
     "theme",
-    "unlimitedStorage",
-    "<all_urls>"
+    "unlimitedStorage"
   ],
   "background": {
     "scripts": ["background-rdt.js"]
