@@ -8,4 +8,4 @@ Algorithm:
   * For each tab, if already discarded:
     * Reload tab
     * Poll for "tab.status == complete" OR wait 30 seconds
-    * Wait 60 seconds then discard tab (Shorter delays sometimes had issues with the loading throbber or TST updating before being discarded)
+    * Discard tab
