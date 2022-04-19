@@ -1,6 +1,5 @@
 "use strict";
 
-const kTST_ID = "treestyletab@piro.sakura.ne.jp";
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 var error_count = 0;
 var list_count = 0;
