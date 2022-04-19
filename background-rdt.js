@@ -45,7 +45,7 @@ async function ReloadAndDiscard(tab) {
     var current_tab = await browser.tabs.get(tab.id);
     console.log('RDT: tab.status = ' + current_tab.status);
     
-  } while (current_tab.status != "complete" && count <= 60)  // Quit if complete or more than 60 seconds
+  } while (current_tab.status != "complete" && count <= 60)  // Quit if complete or more than 30 seconds
   
   if (count > 60) {
     error_count++;
