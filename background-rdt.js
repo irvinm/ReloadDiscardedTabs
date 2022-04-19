@@ -8,28 +8,28 @@ var discarded_count = 0;
 function wait(ms) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("Done waiting " + ms + "ms");
+      console.log("RDT: Done waiting " + ms + "ms");
       resolve(ms)
     }, ms )
   })
 } 
 
 function onReloaded() {
-  console.log(`Reloaded`);
+  console.log(`RDT: Reloaded`);
 }
 
 function onError(error) {
-  console.log(`Error: ${error}`);
+  console.log(`RDT: Error: ${error}`);
 }
 
 async function myDiscard(tab) {
   await wait(60000);
   await browser.tabs.discard(tab);  // Not waiting on it to complete ... don't care
-  console.log('Discard complete for tab ' + this);
+  console.log('RDT: Discard complete for tab ' + this);
 }
 
 async function ReloadAndDiscard(tab) {
-  console.log('Reloading and discarding -> Tab ' + tab.id + ': ' + tab.url);
+  console.log('RDT: Reloading and discarding -> Tab ' + tab.id + ': ' + tab.url);
   
   await browser.tabs.reload(tab.id);
 
@@ -39,11 +39,11 @@ async function ReloadAndDiscard(tab) {
     count++;
 
     /* If the delay between a reload and discard is too low, TST can't keep up */
-    console.log('Waiting for (' + count + ') reload to complete -> 500ms');
+    console.log('RDT: Waiting for (' + count + ') reload to complete -> 500ms');
     await wait(500);
 
     var current_tab = await browser.tabs.get(tab.id);
-    console.log('tab.status = ' + current_tab.status);
+    console.log('RDT: tab.status = ' + current_tab.status);
     
   } while (current_tab.status != "complete" && count <= 60)  // Quit if complete or more than 60 seconds
   
@@ -56,7 +56,7 @@ async function ReloadAndDiscard(tab) {
       runAt: "document_start"
     });
 
-    console.log('Waited too long: count = ' + count + ', error count = ', error_count);
+    console.log('RDT: Waited too long: count = ' + count + ', error count = ', error_count);
   }
 
   myDiscard(tab.id);
@@ -67,7 +67,7 @@ async function logTabs(tabs) {
     
     list_count++;  // Increment processed tabs
     // tab.url requires the `tabs` permission or a matching host permission.
-    console.log('Checking if discarded -> Tab ' + tab.id + ': ' + tab.url);
+    console.log('RDT: Checking if discarded -> Tab ' + tab.id + ': ' + tab.url);
 
     if (tab.discarded) {
       discarded_count++;  // Increment discarded tabs count
@@ -75,11 +75,11 @@ async function logTabs(tabs) {
     }
   }
 
-  console.log('======================================');
-  console.log('Total tabs reviewed: ' + list_count);
-  console.log('Total discarded tabs processed: ' + discarded_count);
-  console.log('Total errors: ' + error_count);
-  console.log('======================================');
+  console.log('RDT: ======================================');
+  console.log('RDT: Total tabs reviewed: ' + list_count);
+  console.log('RDT: Total discarded tabs processed: ' + discarded_count);
+  console.log('RDT: Total errors: ' + error_count);
+  console.log('RDT: ======================================');
 
   // Reset counts
   list_count = 0;
