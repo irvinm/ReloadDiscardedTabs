@@ -23,7 +23,6 @@ function onError(error) {
 }
 
 async function myDiscard(tab) {
-  await wait(60000);
   await browser.tabs.discard(tab);  // Not waiting on it to complete ... don't care
   console.log('RDT: Discard complete for tab ' + this);
 }
