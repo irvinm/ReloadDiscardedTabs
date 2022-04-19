@@ -8,16 +8,7 @@
   "name": "Reload Discarded Tabs",
   "version": "0.1.0",
   "permissions": [
-    "activeTab",
-    "background",
-    "find",
-    "notifications",
-    "sessions",
-    "storage",
-    "tabs",
-    "theme",
-    "unlimitedStorage",
-    "<all_urls>"
+    "tabs"
   ],
   "background": {
     "scripts": ["background-rdt.js"]
