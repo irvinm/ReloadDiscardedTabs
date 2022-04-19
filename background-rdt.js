@@ -45,7 +45,7 @@ async function ReloadAndDiscard(tab) {
     var current_tab = await browser.tabs.get(tab.id);
     console.log('tab.status = ' + current_tab.status);
     
-  } while (current_tab.status != "complete" && count <= 60)  // Quit if complete or more than 30 seconds
+  } while (current_tab.status != "complete" && count <= 60)  // Quit if complete or more than 60 seconds
   
   if (count > 60) {
     error_count++;
@@ -64,9 +64,9 @@ async function ReloadAndDiscard(tab) {
 
 async function logTabs(tabs) {
   for (let tab of tabs) {
-    // tab.url requires the `tabs` permission or a matching host permission.
-
+    
     list_count++;  // Increment processed tabs
+    // tab.url requires the `tabs` permission or a matching host permission.
     console.log('Checking if discarded -> Tab ' + tab.id + ': ' + tab.url);
 
     if (tab.discarded) {
