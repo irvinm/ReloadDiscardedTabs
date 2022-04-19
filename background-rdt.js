@@ -22,24 +22,6 @@ function onError(error) {
   console.log(`Error: ${error}`);
 }
 
-/*
-const filter = {
-  properties: ["status"]
-}
-
-function handleUpdated(tabId, changeInfo, tabInfo) {
-  console.log('-----------------------');
-  console.log("Updated tab: " + tabId);
-  console.log("Changed attributes: ");
-  console.log(changeInfo);
-  console.log("New tab Info: ");
-  console.log(tabInfo);
-  console.log('-----------------------');
-}
-
-browser.tabs.onUpdated.addListener(handleUpdated, filter);
-*/
-
 async function myDiscard(tab) {
   await wait(60000);
   await browser.tabs.discard(tab);  // Not waiting on it to complete ... don't care
@@ -50,9 +32,6 @@ async function ReloadAndDiscard(tab) {
   console.log('Reloading and discarding -> Tab ' + tab.id + ': ' + tab.url);
   
   await browser.tabs.reload(tab.id);
-
-  /* If the delay between a reload and discard is too low, TST can't keep up */
-  //await wait(1000);
 
   let count = 0;
 
