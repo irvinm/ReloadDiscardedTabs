@@ -23,8 +23,8 @@ function onError(error) {
 }
 
 async function myDiscard(tab) {
-  await browser.tabs.discard(tab);  // Not waiting on it to complete ... don't care
-  console.log('RDT: Discard complete for tab ' + this);
+  await browser.tabs.discard(tab.id);  // Not waiting on it to complete ... don't care
+  console.log('RDT: Discard complete for tab ' + tab.id + ': ' + tab.url);
 }
 
 async function ReloadAndDiscard(tab) {
@@ -58,7 +58,7 @@ async function ReloadAndDiscard(tab) {
     console.log('RDT: Waited too long: count = ' + count + ', error count = ', error_count);
   }
 
-  myDiscard(tab.id);
+  myDiscard(tab);
 }
 
 async function logTabs(tabs) {
