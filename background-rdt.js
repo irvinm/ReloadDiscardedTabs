@@ -24,7 +24,7 @@ function onError(error) {
 
 async function myDiscard(tab) {
   await browser.tabs.discard(tab.id);  // Not waiting on it to complete ... don't care
-  console.log('RDT: Discard complete for tab ' + tab.id + ': ' + tab.url);
+  console.log('RDT: Discard initiated for tab ' + tab.id + ': ' + tab.url);
 }
 
 async function ReloadAndDiscard(tab) {
