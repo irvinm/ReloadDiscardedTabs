@@ -6,7 +6,6 @@ assignees:
   - octocat
 body:
  - type: checkboxes
-    id: new-bug
     attributes:
       label: Is there an existing issue for this?
       description: Please search to see if an issue already exists for the bug you encountered.
