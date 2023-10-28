@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Extension Options</title>
+    <style>
+        /* Add margin to create a visible blank line */
+        #saveButton {
+            margin-top: 20px;
+        }
+
+        /* Default styles for the options page */
+        body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        }
+
+        /* Styles for the light mode */
+        body.light {
+        background-color: #fff;
+        color: #000;
+        }
+
+        /* Styles for the dark mode */
+        body.dark {
+        background-color: #000;
+        color: #fff;
+        }
+
+/* Additional styles can be defined here */
+
+
+        /*
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+*/
+    </style>
+</head>
+
+<body>
+    <h2>Select Reload Option:</h2>
+    <label>
+        <input type="radio" id="reloadAllTabs" name="reloadOption" value="allTabs">
+        Reload all tabs
+    </label>
+    <br>
+    <label>
+        <input type="radio" id="reloadOnlyThisWindow" name="reloadOption" value="thisWindow">
+        Reload only tabs in the current window
+    </label>
+    <h2>Select Display Mode:</h2>
+    <label>
+      <input type="radio" id="lightMode" name="displayMode" value="light">
+      Light Mode
+    </label>
+    <br>
+    <label>
+      <input type="radio" id="darkMode" name="displayMode" value="dark">
+      Dark Mode
+    </label>
+    <!-- Blank line added here -->
+    <div>
+        <button id="saveButton">Save</button>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+
+</html>

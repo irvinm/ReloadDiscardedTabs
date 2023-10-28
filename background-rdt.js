@@ -91,6 +91,24 @@ function Start() {
   querying.then(logTabs, onError);
 }
 
+function StartThisWindow() {
+  // Query for tabs in the current window.
+  let querying = browser.tabs.query({ currentWindow: true });
+  querying.then(logTabs, onError);
+}
+
 browser.browserAction.onClicked.addListener(() => {
-  Start();
+  // Get the user's selected reload option.
+  browser.storage.sync.get("reloadOption").then((result) => {
+    const reloadOption = result.reloadOption || "allTabs";
+
+    // Modify your logic based on the selected option.
+    if (reloadOption === "allTabs") {
+      // Reload all tabs logic.
+      Start();
+    } else if (reloadOption === "thisWindow") {
+      // Reload only tabs in this window logic.
+      StartThisWindow();
+    }
+  });
 });
