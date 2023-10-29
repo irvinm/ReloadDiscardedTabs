@@ -70,14 +70,20 @@ async function logTabs(tabs) {
       console.log('RDT: Stopping ...');
       return;
     }
-    
+
     list_count++;  // Increment processed tabs
     // tab.url requires the `tabs` permission or a matching host permission.
     console.log('RDT: Checking if discarded -> Tab ' + tab.id + ': ' + tab.url);
 
+    // Check if tab is discarded 
     if (tab.discarded) {
       discarded_count++;  // Increment discarded tabs count
-      await ReloadAndDiscard(tab);
+
+      // Check if tab has a favicon
+      var current_tab = await browser.tabs.get(tab.id);
+      if (current_tab.favIconUrl == null) {
+        await ReloadAndDiscard(tab);
+      }
     }
   }
 
@@ -87,10 +93,11 @@ async function logTabs(tabs) {
   console.log('RDT: Total errors: ' + error_count);
   console.log('RDT: ======================================');
 
-  // Reset counts
+  // Done - Reset application
   list_count = 0;
   discarded_count = 0;
   error_count = 0;
+  running = false;  // Done - Set running to false
 }
 
 function Start() {
