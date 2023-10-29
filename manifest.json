@@ -6,7 +6,7 @@
   "homepage_url": "https://github.com/irvinm/ReloadDiscardedTabs",
   "manifest_version": 2,
   "name": "Reload Discarded Tabs",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "permissions": [
     "tabs",
     "notifications",
