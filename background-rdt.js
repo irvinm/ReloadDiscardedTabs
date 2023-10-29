@@ -4,6 +4,7 @@ const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 var error_count = 0;
 var list_count = 0;
 var discarded_count = 0;
+var running = false;
 
 function wait(ms) {
   return new Promise((resolve, reject) => {
@@ -64,6 +65,12 @@ async function ReloadAndDiscard(tab) {
 async function logTabs(tabs) {
   for (let tab of tabs) {
     
+    // Check if we are still running and exit if not
+    if (!running) {
+      console.log('RDT: Stopping ...');
+      return;
+    }
+    
     list_count++;  // Increment processed tabs
     // tab.url requires the `tabs` permission or a matching host permission.
     console.log('RDT: Checking if discarded -> Tab ' + tab.id + ': ' + tab.url);
@@ -102,13 +109,18 @@ browser.browserAction.onClicked.addListener(() => {
   browser.storage.sync.get("reloadOption").then((result) => {
     const reloadOption = result.reloadOption || "allTabs";
 
-    // Modify your logic based on the selected option.
-    if (reloadOption === "allTabs") {
-      // Reload all tabs logic.
-      Start();
-    } else if (reloadOption === "thisWindow") {
-      // Reload only tabs in this window logic.
-      StartThisWindow();
+    // Toggle running status
+    running = !running;
+
+    // Kick off job if button clicked
+    if (running) {
+      if (reloadOption === "allTabs") {
+        // Reload all tabs logic.
+        Start();
+      } else if (reloadOption === "thisWindow") {
+        // Reload only tabs in this window logic.
+        StartThisWindow();
+      }
     }
   });
 });
