@@ -1,6 +1,6 @@
 {
   "browser_action": {
-    "default_icon": "reload.png"
+    "default_icon": "reload1.png"
   },
   "description": "Reload discarded tabs after a session restore to obtain favico",
   "homepage_url": "https://github.com/irvinm/ReloadDiscardedTabs",
@@ -15,14 +15,14 @@
     "scripts": ["background-rdt.js"]
   },
   "icons": {
-    "128": "reload.png"
+    "128": "reload1.png"
   },
   "applications": {
     "gecko": {
       "id": "Reload-Discarded-Tabs@irvinm.addons.mozilla.org"
     }
   },
-  "web_accessible_resources": ["images/*.png"],
+  "web_accessible_resources": ["*.png"],
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true

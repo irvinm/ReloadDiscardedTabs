@@ -5,6 +5,24 @@ var error_count = 0;
 var list_count = 0;
 var discarded_count = 0;
 var running = false;
+let animationInterval;
+let animationFrame = 1;
+
+function startAnimation() {
+  animationInterval = setInterval(() => {
+    // Change the icon to the next frame
+    browser.browserAction.setIcon({ path: `reload${animationFrame}.png` });
+
+    // Increment the frame number, looping back to 1 if necessary
+    animationFrame = (animationFrame % 4) + 1;
+  }, 250); // Change the frame every 250 milliseconds
+}
+
+function stopAnimation() {
+  // Clear the animation interval and reset the icon to a default state
+  clearInterval(animationInterval);
+  browser.browserAction.setIcon({ path: "reload1.png" });
+}
 
 function wait(ms) {
   return new Promise((resolve, reject) => {
@@ -68,6 +86,7 @@ async function logTabs(tabs) {
     // Check if we are still running and exit if not
     if (!running) {
       console.log('RDT: Stopping ...');
+      stopAnimation();
       return;
     }
 
@@ -98,6 +117,7 @@ async function logTabs(tabs) {
   discarded_count = 0;
   error_count = 0;
   running = false;  // Done - Set running to false
+  stopAnimation();
 }
 
 function Start() {
@@ -121,6 +141,7 @@ browser.browserAction.onClicked.addListener(() => {
 
     // Kick off job if button clicked
     if (running) {
+      startAnimation();
       if (reloadOption === "allTabs") {
         // Reload all tabs logic.
         Start();
