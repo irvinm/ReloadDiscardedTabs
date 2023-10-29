@@ -4,6 +4,7 @@ const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 var error_count = 0;
 var list_count = 0;
 var discarded_count = 0;
+var processed_count = 0;
 var running = false;
 let animationInterval;
 let animationFrame = 1;
@@ -101,6 +102,7 @@ async function logTabs(tabs) {
       // Check if tab has a favicon
       var current_tab = await browser.tabs.get(tab.id);
       if (current_tab.favIconUrl == null) {
+        processed_count++;  // Increment processed tabs count 
         await ReloadAndDiscard(tab);
       }
     }
@@ -108,14 +110,27 @@ async function logTabs(tabs) {
 
   console.log('RDT: ======================================');
   console.log('RDT: Total tabs reviewed: ' + list_count);
-  console.log('RDT: Total discarded tabs processed: ' + discarded_count);
+  console.log('RDT: Total discarded tabs: ' + discarded_count);
+  console.log('RDT: Total reloaded: ' + processed_count);
   console.log('RDT: Total errors: ' + error_count);
   console.log('RDT: ======================================');
+
+  // Create a formatted message for the notification
+  const notificationMessage = `Total tabs reviewed: ${list_count}\nTotal discarded tabs: ${discarded_count}\nTotal reloaded: ${processed_count}\nTotal errors: ${error_count}`;
+
+    // Create a notification
+  browser.notifications.create({
+    type: "basic",
+    iconUrl: "reload1.png", // URL to the icon image
+    title: "Reload job complete",
+    message: notificationMessage,
+  });
 
   // Done - Reset application
   list_count = 0;
   discarded_count = 0;
   error_count = 0;
+  processed_count = 0;
   running = false;  // Done - Set running to false
   stopAnimation();
 }

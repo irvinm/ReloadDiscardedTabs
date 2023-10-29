@@ -9,6 +9,7 @@
   "version": "0.9.1",
   "permissions": [
     "tabs",
+    "notifications",
     "storage"
   ],
   "background": {
