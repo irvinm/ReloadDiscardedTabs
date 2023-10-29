@@ -88,7 +88,7 @@ async function logTabs(tabs) {
     if (!running) {
       console.log('RDT: Stopping ...');
       stopAnimation();
-      return;
+      break;
     }
 
     list_count++;  // Increment processed tabs
