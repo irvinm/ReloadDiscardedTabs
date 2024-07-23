@@ -1,4 +1,4 @@
-![CI/CD](https://github.com/irvinm/ReloadDiscardedTabs/workflows/CI/CD/badge.svg)
+![CI/CD](https://github.com/irvinm/ReloadDiscardedTabs/workflows/CI/CD/badge.svg) ![Mozilla Add-on](https://img.shields.io/amo/users/reload-discarded-tabs.svg?style=flat-square) ![](https://img.shields.io/amo/v/reload-discarded-tabs.svg?style=flat-square)
 
 # Reload Discarded Tabs
 
